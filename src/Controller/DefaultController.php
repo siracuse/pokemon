@@ -29,13 +29,31 @@ class DefaultController extends AbstractController
 
 
 
+
     #[Route('/', name: 'index', methods: 'GET')]
-    public function index(HttpClientInterface $httpClient): JsonResponse
+    public function index(HttpClientInterface $httpClient)
     {
-
-        $url = 'https://pokeapi.co/api/v2/generation/1/';
+        $url = 'https://pokeapi.co/api/v2/pokemon?limit=5';
         $data = $this->fetchData($url);
+        $pokemons = [];
 
-        return new JsonResponse($data['pokemon_species']);
+        foreach($data['results'] as $pokemonList) {
+            $pokemonAllInfo = $this->fetchData($pokemonList['url']);
+
+            foreach($pokemonAllInfo['types'] as $type) {
+                $types[] = $type['type']['name'];
+            }
+
+            $pokemons[] = [
+                'name' => $pokemonAllInfo['name'],
+                'id' => $pokemonAllInfo['id'],
+                'sprites' => $pokemonAllInfo['sprites']['front_default'],
+                'types' => $types
+            ];
+        }
+
+        return $this->render('default/index.html.twig', [
+            'pokemons' => $pokemons
+        ]);
     }
 }
