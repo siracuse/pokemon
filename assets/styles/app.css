@@ -1,3 +1,77 @@
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
 body {
-    background-color: skyblue;
+    background-color: #F6F8FC;
+    font-family: 'Poppins', sans-serif;
+}
+
+.pokemon-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.pokemon-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+}
+
+.pokemon-card .name{
+    color: #122042;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+.pokemon-card .id {
+    color: grey;
+    font-size: 0.9em;
+}
+/*TYPES*/
+.types {
+    display: flex;
+}
+.type {
+    margin: 2px;
+    padding: 2px 8px;
+}
+.grass {
+    background-color: #A8EF8E;
+}
+.fire {
+    background-color: #ff994d;
+}
+.poison {
+    background-color: #B97FC9;
+}
+.water {
+    background-color: #4592C4;
+}
+.bug {
+    background-color: #729F3F;
+}
+.normal {
+    background-color: #A4ACAF;
+}
+.flying {
+    background-color: #3DC7EF;
+}
+.electric {
+    background-color: #EED535;
+}
+.ground {
+    background-color: #FFCD83;
+}
+.fairy {
+    background-color: #FDB9E9;
+}
+
+
+/*ENDTYPES*/
+
+@media all and (min-width: 1200px){
+    body {
+        max-width: 1200px;
+        text-align: center;
+        margin: 0 auto;
+    }
 }

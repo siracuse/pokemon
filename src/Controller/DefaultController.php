@@ -33,13 +33,15 @@ class DefaultController extends AbstractController
     #[Route('/', name: 'index', methods: 'GET')]
     public function index(HttpClientInterface $httpClient)
     {
-        $url = 'https://pokeapi.co/api/v2/pokemon?limit=5';
+//        ini_set('memory_limit', '512M');
+        $url = 'https://pokeapi.co/api/v2/pokemon?limit=151';
         $data = $this->fetchData($url);
+
         $pokemons = [];
 
         foreach($data['results'] as $pokemonList) {
             $pokemonAllInfo = $this->fetchData($pokemonList['url']);
-
+            $types = [];
             foreach($pokemonAllInfo['types'] as $type) {
                 $types[] = $type['type']['name'];
             }
@@ -50,6 +52,7 @@ class DefaultController extends AbstractController
                 'sprites' => $pokemonAllInfo['sprites']['front_default'],
                 'types' => $types
             ];
+            unset($pokemonAllInfo);
         }
 
         return $this->render('default/index.html.twig', [

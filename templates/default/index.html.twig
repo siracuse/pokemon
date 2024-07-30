@@ -1,12 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DefaultController!{% endblock %}
-
 {% block body %}
 
-    {% for pokemon in pokemons %}
-        {{ (pokemon.name) }}
-    {% endfor %}
+
+    <div class="pokemon-grid">
+        {% for pokemon in pokemons %}
+{#            {{ dump(pokemon) }}#}
+            <div class="pokemon-card">
+                <div class="picture"><img src="{{ (pokemon.sprites) }}" alt="{{ pokemon.name }}"></div>
+                <div class="id">N°{{ (pokemon.id) }}</div>
+                <div class="name">{{ (pokemon.name) }}</div>
+                <div class="types">
+                    {% for type in pokemon.types %}
+                        <div class="{{ type }} type">{{ type }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+
 
 
 {% endblock %}
