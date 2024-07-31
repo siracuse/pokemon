@@ -34,7 +34,7 @@ class DefaultController extends AbstractController
     public function index(HttpClientInterface $httpClient)
     {
 //        ini_set('memory_limit', '512M');
-        $url = 'https://pokeapi.co/api/v2/pokemon?limit=151';
+        $url = 'https://pokeapi.co/api/v2/pokemon?limit=12';
         $data = $this->fetchData($url);
 
         $pokemons = [];

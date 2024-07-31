@@ -3,29 +3,70 @@
 body {
     background-color: #F6F8FC;
     font-family: 'Poppins', sans-serif;
+    padding: 15px;
+    margin: 0;
 }
+
+
+/*NAVBAR*/
+nav {
+    background-color: white;
+    border-radius: 25px;
+    margin: 0 10px 80px 10px;
+    padding: 18px 10px;
+}
+ul {
+    display: flex;
+    list-style: none;
+}
+li {
+    margin-right: 40px;
+    text-transform: capitalize;
+}
+a {
+    color: #696969;
+    text-decoration: none;
+}
+/*END NAVBAR*/
+
 
 .pokemon-grid {
     display: flex;
     flex-wrap: wrap;
+    margin-top: 50px;
+    justify-content: space-between;
 }
 
 .pokemon-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 200px;
+    background-color: white;
+    border-radius: 25px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    margin-bottom: 70px;
+    margin: 0 10px 70px 10px;
+    padding-bottom: 20px;
+    width: 160px;
+}
+.picture img {
+    margin-top: -48px;
+}
+
+.pokemon-card .id {
+    color: grey;
+    font-size: 0.8em;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .pokemon-card .name{
     color: #122042;
     text-transform: capitalize;
     font-weight: bold;
+    margin-bottom: 8px;
 }
-.pokemon-card .id {
-    color: grey;
-    font-size: 0.9em;
-}
+
 /*TYPES*/
 .types {
     display: flex;
@@ -33,6 +74,10 @@ body {
 .type {
     margin: 2px;
     padding: 2px 8px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.8em;
+    border-radius: 6px
 }
 .grass {
     background-color: #A8EF8E;
@@ -68,10 +113,21 @@ body {
 
 /*ENDTYPES*/
 
+@media all and (min-width: 800px){
+    .pokemon-card {
+        width: 220px;
+
+    }
+}
+
 @media all and (min-width: 1200px){
     body {
         max-width: 1200px;
         text-align: center;
         margin: 0 auto;
     }
+    .pokemon-grid {
+        justify-content: start;
+    }
 }
+
