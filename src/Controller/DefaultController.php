@@ -2,61 +2,30 @@
 
 namespace App\Controller;
 
+use App\Form\RechercheType;
+use App\Service\PokemonAPI;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class DefaultController extends AbstractController
 {
 
-    private $httpClient;
-
-    public function __construct(HttpClientInterface $httpClient)
-    {
-        $this->httpClient = $httpClient;
-    }
-
-    private function fetchData($url)
-    {
-        $response = $this->httpClient->request('GET', $url);
-        if ($response->getStatusCode() !== 200) {
-            throw new \Exception('Error fetching data from PokeAPI');
-        }
-        return $response->toArray();
-    }
-
-
-
 
     #[Route('/', name: 'index', methods: 'GET')]
-    public function index(HttpClientInterface $httpClient)
+    public function index(Request $request, PokemonAPI $pokemonAPI)
     {
-//        ini_set('memory_limit', '512M');
-        $url = 'https://pokeapi.co/api/v2/pokemon?limit=12';
-        $data = $this->fetchData($url);
+        $data = $pokemonAPI->fetchDataByUrl('https://pokeapi.co/api/v2/pokemon?limit=60');
+        $pokemons = $pokemonAPI->getSimplifiedDataPokemon($data);
+        $types = $pokemonAPI->getAllTypes($pokemons);
 
-        $pokemons = [];
-
-        foreach($data['results'] as $pokemonList) {
-            $pokemonAllInfo = $this->fetchData($pokemonList['url']);
-            $types = [];
-            foreach($pokemonAllInfo['types'] as $type) {
-                $types[] = $type['type']['name'];
-            }
-
-            $pokemons[] = [
-                'name' => $pokemonAllInfo['name'],
-                'id' => $pokemonAllInfo['id'],
-                'sprites' => $pokemonAllInfo['sprites']['front_default'],
-                'types' => $types
-            ];
-            unset($pokemonAllInfo);
-        }
+        $form = $this->createForm(RechercheType::class, null, [
+            'types' => $types,
+        ]);
 
         return $this->render('default/index.html.twig', [
-            'pokemons' => $pokemons
+            'pokemons' => $pokemons,
+            'form' => $form
         ]);
     }
 }

@@ -1,0 +1,13 @@
+HTML / CSS
+- ajouter les couleurs des types pour les 151 premiers pokemon
+- ajouter une animation au survol des cards
+
+
+
+PHP / S7
+- faire la trad
+- pagination
+- ajouter les filtres
+    - types
+- barre de recherche sur le nom d'un pokemon
+- lors d'un clic sur une card, faire un affichage à droite avec plus de détails

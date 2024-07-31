@@ -3,9 +3,12 @@
 {% block body %}
 
 
+    <div class="search">
+        {{ form(form) }}
+    </div>
+
     <div class="pokemon-grid">
         {% for pokemon in pokemons %}
-{#            {{ dump(pokemon) }}#}
             <div class="pokemon-card">
                 <div class="picture"><img src="{{ (pokemon.sprites) }}" alt="{{ pokemon.name }}"></div>
                 <div class="id">N°{{ (pokemon.id) }}</div>
@@ -18,8 +21,6 @@
             </div>
         {% endfor %}
     </div>
-
-
 
 
 
